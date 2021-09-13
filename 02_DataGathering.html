@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .text {
+            text-indent: 2em;
+            text-align: left;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        button.link {
+            background: none;
+            /*border:none;*/
+        }
+
+        IMG.displayed {
+            display: block;
+            margin-left: auto;
+            margin-right: auto
+        }
+    </style>
+    <title>Data Gathering</title>
+
+
+</head>
+
+<body>
+
+<article class="blog-post">
+    <h2 class="title">Data Gathering Introduction</h2>
+    <div class="title">
+        <p></p>
+        <button class="link">Back to Introduction</button>
+    </div>
+    <p></p>
+    <p class="title">I collect many kinds of data from different sources including US government website, Twitter
+        api, and Trump supporter website. In the next part I will focus on them one by one.</p>
+    <hr>
+    <ul>
+        <h3 class="title">Twitter text data of Trump competitor —— Hillary</h3>
+        <p></p>
+        <p class="text">I got Hillary tweets data from Twitter API with the allowance of the law. Due to some special
+            restriction, I decided to choose October 2016 to February 2017 as the research window. Twitter API provides
+            completed support for applicants so that I can use R and Python separately to get text data.
+        </p>
+        <div class="title">
+            <a href="https://documenter.getpostman.com/view/9956214/T1LMiT5U#daeb8a9f-6dac-4a40-add6-6b68bffb40cc"
+               class="title" target="_blank"
+            >Twitter
+                API Document LINK</a>
+        </div>
+        <br/>
+        <h4 class="title">Python API</h4>
+        <br/>
+        <img src="resource/pythonAPI.png" alt="Simply Easy Learning" width="700" height="450" class="displayed">
+        <br/>
+        <h4 class="title">R API</h4>
+        <br/>
+        <img src="resource/RAPI.png" alt="Simply Easy Learning" width="700" height="400" class="displayed">
+        <br/>
+        <br/>
+        <h3 class="title">Data Preview for Hillary Tweets(Word cloud and Topic model)</h3>
+        <br/>
+        <img src="resource/worldCloud.png" alt="Simply Easy Learning" width="700" height="450" class="displayed">
+        <br/>
+        <p class="title">From this word cloud picture, we can find most of the words are about vote and time. It shows
+            that Hillary
+            tried to raise attention to the timing of the election.</p>
+        <br/>
+        <img src="resource/LDA.png" alt="Simply Easy Learning" width="700" height="600" class="displayed">
+        <br/>
+        <p>This is LDA topic Model. I select 10 possible topic to show. Hillary used many vocabularies with strong
+            action and words related to time. All of them are about family, time, action, vote. It's an interesting work
+            but it's not out of expectation</p>
+
+
+        <hr>
+        <br/>
+        <h3 class="title">Statistical data of president election in US from 1976 to 2020</h3>
+        <img src="resource/1976_2016.png" alt="Simply Easy Learning" width="1000" height="250" class="displayed">
+        <br/>
+        <div class="title">
+            <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/42MVDX"
+               class="title" target="_blank"
+            >U.S. President 1976–2020 LINK</a>
+        </div>
+        <br/>
+        <h3 class="title">Statistical data of president election in US of 2016</h3>
+        <img src="resource/2016.png" alt="Simply Easy Learning" width="1000" height="250" class="displayed">
+        <br/>
+        <div class="title">
+            <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/LYWX3D"
+               class="title" target="_blank"
+            >U.S. President 2016 LINK</a>
+        </div>
+
+    </ul>
+</article>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $("button").click(function () {
+        window.location.replace("01_Introduction.html");
+    });
+</script>
+</body>

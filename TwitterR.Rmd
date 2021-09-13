@@ -1,0 +1,115 @@
+---
+title: "twitterR"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+
+BEARER_TOKEN <- 'AAAAAAAAAAAAAAAAAAAAAK24TQEAAAAAHG0C3s8WeHg3xoXvrJpFaKNXQXw%3DdmVYnBko1CicATtTRO1KP5DHZLZBwOF88NrO7ZH62K8ELY7QtL'
+
+```
+
+## package
+
+You can also embed plots, for example:
+
+```{r}
+require(httr)
+require(jsonlite)
+require(dplyr)
+```
+
+
+```{r}
+headers <- c(`Authorization` = sprintf('Bearer %s', BEARER_TOKEN))
+params <- list(`tweet.fields` = 'created_at')
+handle <- '1339835893'
+start_time <- '2017-01-01T00:00:00Z'
+end_time <- '2017-03-01T00:00:00Z'
+
+url_handle <-
+  # sprintf('https://api.twitter.com/2/users/by?usernames=%s', handle)
+  sprintf('https://api.twitter.com/2/users/%s/tweets?max_results=100&start_time=%s&end_time=%s', handle, start_time, end_time)
+
+
+
+response <-
+  httr::GET(url = url_handle,
+            httr::add_headers(.headers = headers),
+            query = params)
+obj <- httr::content(response, as = "text")
+```
+
+
+```{r}
+get2016 <- function() {
+  headers <- c(`Authorization` = sprintf('Bearer %s', BEARER_TOKEN))
+  params <- list(`tweet.fields` = 'created_at')
+  
+  handle <- '1339835893'
+  start_time <- '2016-01-01T00:00:00Z'
+  end_time <- '2017-01-01T00:00:00Z'
+  url_handle <-
+  sprintf('https://api.twitter.com/2/users/%s/tweets?max_results=100&start_time=%s&end_time=%s', fmt =   handle, start_time, end_time)
+  
+  response <-
+  httr::GET(url = url_handle,
+            httr::add_headers(.headers = headers),
+            query = params)
+  obj <- httr::content(response, as = 'text')
+  json_data <- fromJSON(obj, flatten = TRUE) %>% as.data.frame
+  
+  while(as.Date(json_data[nrow(json_data), 1]) - as.Date('2016-1-1') > 0) {
+      new_end_time <- json_data[nrow(json_data), 1]
+      new_url_handle <-
+      sprintf('https://api.twitter.com/2/users/%s/tweets?max_results=100&start_time=%s&end_time=%s',        fmt = handle, start_time, new_end_time)
+      new_response <-
+      httr::GET(url = new_url_handle,
+                httr::add_headers(.headers = headers),
+                query = params)
+      new_obj <- httr::content(new_response, as = "text")
+      new_json_data <- fromJSON(new_obj, flatten = TRUE) %>% as.data.frame
+      json_data <- rbind(json_data, new_json_data)
+  }
+  
+  return (json_data)
+}
+```
+
+
+```{r}
+data2016 <- get2016()
+```
+
+```{r}
+json_data <- fromJSON(obj, flatten = TRUE) %>% as.data.frame
+View(json_data)
+library(xlsx)
+write.xlsx(json_data, "2017_Hillary.xlsx")
+
+
+```
+
+
+```{r}
+
+as.Date(json_data[nrow(json_data), 1]) - as.Date('2016-1-1') > 0
+```
+```{r}
+
+```
+
+```{r}
+
+```
+
