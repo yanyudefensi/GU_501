@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .text {
+            text-indent: 2em;
+            text-align: left;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        button.link {
+            background: none;
+            /*border:none;*/
+        }
+
+        IMG.displayed {
+            display: block;
+            margin-left: auto;
+            margin-right: auto
+        }
+    </style>
+    <title>Data Gathering</title>
+
+
+</head>
+
+<body>
+
+<article class="blog-post">
+    <h2 class="title">Data Cleaning Introduction</h2>
+    <div class="title">
+        <p></p>
+        <button class="link">Back to Introduction</button>
+    </div>
+    <p></p>
+    <p class="title"></p>
+    <hr>
+    <ul>
+        <h3 class="title">Text Data Cleaning Part(Hillary and Trump tweets)</h3>
+        <p></p>
+        <p class="text">I got Hillary tweets data from Twitter API with the allowance of the law. Due to some special
+            restriction, I decided to choose October 2016 to February 2017 as the research window. Trumps' tweets
+            have been forbidden to access, therefore I got the target data from a personal website which records Trumps'
+            tweets.
+        </p>
+        <div class="title">
+            <a href="https://documenter.getpostman.com/view/9956214/T1LMiT5U#daeb8a9f-6dac-4a40-add6-6b68bffb40cc"
+               class="title" target="_blank"
+            >Twitter
+                Raw Text Data Source</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="title">
+            <a href="https://documenter.getpostman.com/view/9956214/T1LMiT5U#daeb8a9f-6dac-4a40-add6-6b68bffb40cc"
+               class="title" target="_blank"
+            >Twitter
+                Clean Text Data Source(Word Frequency Statistics)</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="title">
+            <a href="https://documenter.getpostman.com/view/9956214/T1LMiT5U#daeb8a9f-6dac-4a40-add6-6b68bffb40cc"
+               class="title" target="_blank"
+            >Twitter
+                Text Data Clean Source Code(Python)</a>
+        </div>
+        <br/>
+
+        <h4 class="title">Text Data Cleaning</h4>
+        <br/>
+
+        <h4 class="title">There are 4 parts of text data cleaning.</h4>
+        <br/>
+
+        <p class="title">1.Clear away html and link sign in the tweets which is not help for text analysis.</p>
+        <p class="title">2.Clear away numbers, non-English words, and punctuation.</p>
+        <p class="title">3.Clear away stop words because they have no special meaning.</p>
+        <p class="title">4.Do Lemmatization to get the right word frequency.</p>
+        <br/>
+
+        <h4 class="title">Text Data Clean Code</h4>
+        <img src="resource/TextDataClean.png" alt="Simply Easy Learning" width="981" height="849" class="displayed">
+        <br/>
+        <br/>
+        <h3 class="title">Data Preview for Hillary and Trump Tweets(Word cloud)</h3>
+        <br/>
+        <h4 class="title">Hillary Wordcloud</h4>
+        <img src="resource/HillaryWordCloud.png" alt="Simply Easy Learning" width="976" height="497" class="displayed">
+        <br/>
+        <h4 class="title">Trump Wordcloud</h4>
+        <img src="resource/TrumpWordCloud.png" alt="Simply Easy Learning" width="972" height="480" class="displayed">
+        <br/>
+        <p class="title">We can find that Trump has more confidence in winning the election, that's interesting!</p>
+
+        <hr>
+
+        <h3 class="title">Data Preview for Hillary and Trump Tweets(LDA topic model)</h3>
+        <br/>
+        <h4 class="title">Hillary LDA</h4>
+        <img src="resource/HillaryLDA.png" alt="Simply Easy Learning" width="661" height="550" class="displayed">
+        <br/>
+        <h4 class="title">Trump LDA</h4>
+        <img src="resource/TrumpLDA.png" alt="Simply Easy Learning" width="674" height="576" class="displayed">
+        <br/>
+        <p>LDA topic Model selects 10 related words as a topic. And we can guess the topic meaning through 10 words.
+            Hillary used many vocabularies with strong
+            action and words related to time. All of them are about family, time, action, vote. It's an interesting work
+            but it's not out of expectation. Surprisingly, Trump uses a lot of words that play up the moment of crisis
+            of America such as Fail, Lose, Disaster. Both of the candidates are good at motivating voters to vote by
+            rendering a sense of Crisis</p>
+        <hr>
+        <br/>
+        <h3 class="title">Table Data Cleaning Part(1976-2016 president election & 2016 president election data)</h3>
+        <br/>
+        <div class="title">
+            <a href="https://documenter.getpostman.com/view/9956214/T1LMiT5U#daeb8a9f-6dac-4a40-add6-6b68bffb40cc"
+               class="title" target="_blank"
+            >Raw Table Data Source</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="title">
+            <a href="https://documenter.getpostman.com/view/9956214/T1LMiT5U#daeb8a9f-6dac-4a40-add6-6b68bffb40cc"
+               class="title" target="_blank"
+            >Clean Table Data Source</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="title">
+            <a href="https://documenter.getpostman.com/view/9956214/T1LMiT5U#daeb8a9f-6dac-4a40-add6-6b68bffb40cc"
+               class="title" target="_blank"
+            >Table Data Clean Source Code(R)</a>
+        </div>
+        <br/>
+        <h4 class="title">There are 5 parts of text data cleaning.</h4>
+        <br/>
+        <p class="title">1.Have a quick look of two datasets.</p>
+        <p class="title">2.Select the necessary subset/attribute of the whole dataset.</p>
+        <p class="title">3.Check and Filter duplicate rows in the dataset.</p>
+        <p class="title">4.Check and Fix the missing value in the dataset.</p>
+        <p class="title">5.Check and Filter the outlier in the dataset.</p>
+        <br/>
+        <img src="resource/RCleanPart1.png" alt="Simply Easy Learning" width="1042" height="804" class="displayed">
+        <br/>
+        <img src="resource/RCleanPart2.png" alt="Simply Easy Learning" width="900" height="587" class="displayed">
+        <br/>
+        <!--        <div class="title">-->
+        <!--            <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/LYWX3D"-->
+        <!--               class="title" target="_blank"-->
+        <!--            >U.S. President 2016 LINK</a>-->
+        <!--        </div>-->
+
+    </ul>
+</article>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $("button").click(function () {
+        window.location.replace("01_Introduction.html");
+    });
+</script>
+</body>

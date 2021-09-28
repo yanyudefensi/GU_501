@@ -1,0 +1,476 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+The [R plugin](https://www.jetbrains.com/help/pycharm/r-plugin-support.html) for IntelliJ-based IDEs provides
+handy capabilities to work with the [R Markdown](https://www.jetbrains.com/help/pycharm/r-markdown.html) files.
+To [add](https://www.jetbrains.com/help/pycharm/r-markdown.html#add-code-chunk) a new R chunk,
+position the caret at any line or the code chunk, then click "+".
+
+The code chunk appears:
+```{r}
+#rm(list = ls())
+
+# data load
+data_1976_2016 <- read.csv("/Users/junjiexie/Documents/gu校内生活/501/Assignment1/1976-2020president/1976-2020-president.csv")
+data_2016 <- read.csv("/Users/junjiexie/Documents/gu校内生活/501/Assignment1/2016president/2016-precinct-president.csv")
+```
+
+
+```{r}
+# have a quick look of two dataset and subset dataset
+str(data_1976_2016)
+```
+```{r}
+str(data_2016)
+```
+```{r}
+# select the necessary subset of the whole data set
+
+data_1976_2016_need <- subset(data_1976_2016, select = c("year", "state", "candidate", "party_simplified", "candidatevotes", "totalvotes"))
+data_2016_need <- subset(data_2016, select = c("year", "state", "candidate", "party", "votes"))
+
+
+# fix the type of the dataset
+# data_1976_2016_need$party_simplified <- lapply(data_1976_2016_need$party_simplified, as.factor)
+# data_2016_need$party <- lapply(data_2016_need$party, as.factor)
+
+```
+```{r}
+# check if there is duplicate rows in the dataset
+duplicated(data_1976_2016_need) %>%
+    sum()
+duplicated(data_2016_need) %>%
+  sum()
+```
+
+```{r}
+library(tidyverse) 
+# library(scrubr)
+
+# remove the duplicate of data_2016_need
+data_2016_need <- distinct(data_2016_need)
+
+```
+
+```{r}
+# check the missing value of the data_1976_2016_need
+for(i in colnames(data_1976_2016_need)) {
+  print(paste("data_1976_2016_need, the nubmer of missing value of", i,"is",sum(is.na(data_1976_2016_need$i))))
+}
+
+print("-------------------------------")
+
+# check the missing value of data_2016_need
+for(i in colnames(data_2016_need)) {
+  print(paste("data_2016_need, the nubmer of missing value of", i,"is",sum(is.na(data_2016_need$i))))
+}
+
+# the data is so clean that I can't not find a missing value of it
+```
+```{r}
+# check the outlier of the dataset
+
+library(outliers)
+library(ggplot2)
+
+# data_1976_2016
+ggplot(data_1976_2016_need, aes(x = 1:length(candidatevotes), y = candidatevotes)) +
+    geom_point()
+
+ # base on the normal distribution assumption
+outlier_scores_1976_2016 <- scores(data_1976_2016_need$candidatevotes)
+outlier_scores_1976_2016_1 <- scores(data_1976_2016_need$totalvotes)
+data_1976_2016_need <- data_1976_2016_need[outlier_scores_1976_2016 > 3| outlier_scores_1976_2016 < -3, ]
+data_1976_2016_need <- data_1976_2016_need[outlier_scores_1976_2016_1 > 3| outlier_scores_1976_2016_1 < -3, ]
+
+# data_2016
+outlier_scores_2016 <- scores(data_2016_need$votes)
+data_2016_need <- data_2016_need[outlier_scores_2016 > 3 | outlier_scores_2016 < -3, ]
+```
+
+```{r}
+#typeof(data_1976_2016_need$party_simplified)
+#typeof(data_2016_need$party)
+
+#data_1976_2016_need$party_simplified <- lapply(data_1976_2016_need$party_simplified, unlist)
+#data_2016_need$party <- lapply(data_2016_need$party, unlist)
+```
+
+```{r}
+# output clean data
+write.csv(data_1976_2016_need,file="data_1976_2016_clean.csv")
+write.csv(data_2016_need,file="data_2016_clean.csv")
+```
+
+
+Find the dataset description from the website.
+
+U.S. President Returns 1976–2016
+
+The data file `1976-2016-president` contains constituency (state-level) returns for elections to the U.S. presidency from 1976 to 2016.  The data source is the document "[Statistics of the Congressional Election](http://history.house.gov/Institution/Election-Statistics/Election-Statistics/)," published biennially by the Clerk of the U.S. House of Representatives.
+
+## Variables
+The variables are listed as they appear in the data file.
+
+### year
+ - **Description**: year in which election was held
+
+---------------
+
+### office
+  - **Description**: U.S. PRESIDENT
+
+---------------
+
+### state
+ - **Description**: state name
+
+ ---------------
+
+### state_po
+ - **Description**: U.S. postal code state abbreviation
+
+ ---------------
+
+### state_fips
+ - **Description**: State FIPS code
+
+----------------
+
+### state_cen
+ - **Description**: U.S. Census state code
+
+ ---------------
+
+### state_ic
+ - **Description**: ICPSR state code
+
+ ---------------
+
+### candidate
+  - **Description**: name of the candidate
+  - **Note**: The name is as it appears in the House Clerk report.
+
+----------------
+
+### party_detailed
+- **Description**: party of the candidate (always entirely uppercase)
+- **Note**: Parties are as they appear in the House Clerk report. In states that allow candidates to appear on multiple party lines, separate vote totals are indicated for each party.  Therefore, for analysis that involves candidate totals, it will be necessary to aggregate across all party lines within a district.  For analysis that focuses on two-party vote totals, it will be necessary to account for major party candidates who receive votes under multiple party labels. Minnesota party labels are given as they appear on the Minnesota ballots. Future versions of this file will include codes for candidates who are endorsed by major parties, regardless of the party label under which they receive votes.
+
+### party_simplified
+- **Description**: party of the candidate (always entirely uppercase)
+The entries will be one of: DEMOCRAT, REPUBLICAN, LIBERTARIAN, OTHER
+
+----------------
+
+### writein
+- **Description**: vote totals associated with write-in candidates
+- Coding:
+
+|:--|:--|
+| "TRUE" | write-in candidates |
+| "FALSE" | non-write-in candidates |
+
+----------------
+
+### candidatevotes
+  - **Description**: votes received by this candidate for this particular party
+- **Note**: Massachusetts and New York returns often contains entries for "blank," "other/blank," "scattering/blank," and the like.  For analyses that depend on an accurate count of votes cast for candidates (rather than turnout, including blank ballots), consult state returns.  Future versions of this dataset will distinguish blank ballots from votes cast for scattering candidates.
+
+----------------
+
+### totalvotes
+ - **Description**: total number of votes cast for this election
+
+-----------------------------------------------------------------------------
+U.S. President Precinct-Level Returns 2016
+
+
+This codebook describes a dataset on precinct-level returns for elections to
+the U.S. presidency.
+
+Each record in the dataset gives the number of votes reported from a precinct
+for a candidate.
+
+### year
+
+Year of election.
+
+
+### state
+
+State name.
+
+
+### state_postal
+
+State U.S. Postal Service abbreviation (two-letter ISO 1366 code).
+
+
+### state_fips
+
+Numeric state FIPS 5-2 code.
+
+
+### state_icpsr
+
+Numeric ICPSR state code.
+
+
+### county_name
+
+County name.
+
+Source: Census Bureau [National Counties Gazetteer
+File](https://www.census.gov/geo/maps-data/data/gazetteer2017.html).
+
+
+### county_ansi
+
+County ANSI code.
+
+Source: Census Bureau [National Counties Gazetteer
+File](https://www.census.gov/geo/maps-data/data/gazetteer2017.html).
+
+
+### county_fips
+
+Numeric FIPS 6-4 code, the concatenation of two-digit `state_fips` and three-
+digit county FIPS codes.
+
+Source: Census Bureau [National Counties Gazetteer
+File](https://www.census.gov/geo/maps-data/data/gazetteer2017.html).
+
+
+### county_lat
+
+County latitude (decimal degrees).
+
+Source: Census Bureau [National Counties Gazetteer
+File](https://www.census.gov/geo/maps-data/data/gazetteer2017.html).
+
+
+### county_long
+
+County longitude (decimal degrees).
+
+Source: Census Bureau [National Counties Gazetteer
+File](https://www.census.gov/geo/maps-data/data/gazetteer2017.html).
+
+
+### jurisdiction
+
+The name of the administrative jurisdiction, typically a county, as it appeared
+in source data.
+
+Source: Precinct returns for `jurisdiction`.
+
+
+### precinct
+
+The name of the precinct, as it appeared in source data.
+
+Source: Precinct returns for `jurisdiction`.
+
+
+### office
+
+The office for which the `candidate` ran.
+
+Source: Precinct returns for `jurisdiction`.
+
+
+### district
+
+District associated with the `office`, where applicable.
+
+Source: Precinct returns for `jurisdiction`.
+
+
+### stage
+
+The electoral stage, either `gen` for general elections or `pri` for primary
+elections.
+
+
+### special
+
+Whether the election was a special election, either `TRUE` for special
+elections or `FALSE` otherwise.
+
+Source: Precinct returns for `jurisdiction`.
+
+
+### candidate
+
+The name of the candidate.
+
+Candidate names are standardized across jurisdictions.
+
+Source: Precinct returns for `jurisdiction`.
+
+
+### candidate_last
+
+Candidate's last name.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_first
+
+Candidate's first name.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_middle
+
+Candidate's middle name.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_normalized
+
+A normalizing transformation of the candidate's name for joins by name. This is
+a single word from `candidate`, usually the last name, in lowercase. In the
+case of hyphenated names, only the final name is included.
+
+Source: MEDSL.
+
+
+### candidate_full
+
+Candidate's official full name.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_suffix
+
+Candidate name suffix.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_nickname
+
+Candidate's nickname.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_fec
+
+Candidate's [FEC
+identifier](https://www.fec.gov/data/advanced/?tab=candidates). Multiple FEC
+IDs appear concatenated, separated by a semicolon and space (`; `).
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project and [FEC](https://www.fec.gov/data/advanced/?tab=candidates).
+
+
+### candidate_fec_name
+
+Candidate's name as it appears in FEC data.
+
+Source: [FEC](https://www.fec.gov/data).
+
+
+### candidate_google
+
+Candidate's [Google Knowledge Graph](https://developers.google.com/knowledge-
+graph) entity identifier.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_govtrack
+
+Candidate's [GovTrack.us](https://www.govtrack.us) identifier.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_icpsr
+
+Candidate's [ICPSR](https://www.icpsr.umich.edu) identifier.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_maplight
+
+Candidate's [MapLight](https://maplight.org) identifier.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_opensecrets
+
+Candidate's [OpenSecrets.org](https://www.opensecrets.org) identifier.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_wikidata
+
+Candidate's [WikiData](https://www.wikidata.org) identifier.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### candidate_party
+
+Candidate's party affiliation. Values may differ from `party`, which gives the
+candidate's party on the ballot.
+
+Source: The [@unitedstates](https://github.com/unitedstates/congress-legislators)
+project.
+
+
+### writein
+
+Whether the record describes a write-in candidate, either `TRUE` or `FALSE`.
+
+Source: Precinct returns for `jurisdiction`.
+
+
+### party
+
+Party of the `candidate`, where applicable. Candidates may run on multiple
+party lines, so to compute two-party vote shares or candidate vote totals,
+aggregate over `party`.
+
+Party names are standardized across jurisdictions.
+
+Source: Precinct returns for `jurisdiction`.
+
+
+### mode
+
+Vote mode, e.g., `mail` or `Election Day`.
+
+Source: Precinct returns for `jurisdiction`.
+
+
+### votes
+
+Number of votes received.
+
+Source: Precinct returns for `jurisdiction`.
