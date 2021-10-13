@@ -1,25 +1,213 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
-</script>
-<script>
-$(document).ready(function(){
-  $("button").click(function(){
-    $("[href]").hide();
-  });
-});
-</script>
+    <meta charset="utf-8">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .text {
+            text-indent: 2em;
+            text-align: left;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        button.link {
+            background: none;
+            /*border:none;*/
+        }
+
+        IMG.displayed {
+            display: block;
+            margin-left: auto;
+            margin-right: auto
+        }
+    </style>
+    <title>Data Gathering</title>
+
+
 </head>
+
 <body>
 
-<h2>这是标题</h2>
-<p>这是一个段落。</p>
-<p>这是另外一个段落。</p>
-<p><a href="//www.runoob.com/html/">HTML 教程</a></p>
-<p><a href="//www.runoob.com/css/">CSS 教程</a></p>
-<button>点我</button>
+<article class="blog-post">
+    <h2 class="title">Data Clustering</h2>
+    <div class="title">
+        <p></p>
+        <button class="link">Back to Introduction</button>
+    </div>
+    <p></p>
+    <p class="title"></p>
+    <hr>
+    <ul>
+        <h3 class="title">Text Data Clustering Part</h3>
+        <p></p>
+        <p class="text">I got Hillary and Trump tweets data with the allowance of the law. Due to some special
+            restriction, I decided to choose October 2016 to February 2017 as the research window. With the help
+            of CounterVector, I turn the text into vector and use them to carry out clustering.There is something
+            interesting.
+        </p>
+        <div class="title">
+            <a href="https://github.com/yanyudefensi/GU_501/tree/master/rawTextData"
+               class="title" target="_blank"
+            >Text Data With Label</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="title">
+            <a href="https://github.com/yanyudefensi/GU_501/tree/master/cleanData"
+               class="title" target="_blank"
+            >Text Data Clustering and Visualization Source Code</a>
+        </div>
+        <br/>
+        <br/>
 
+        <h4 class="title">Text Data Clustering</h4>
+        <br/>
+
+        <h4 class="title">There are 4 parts of text data cleaning.</h4>
+        <br/>
+
+        <p class="title">1.Text Data Cleaning(Remove stopwords, no-English words)</p>
+        <p class="title">2.Using CounterVector to turn words into vocabulary table</p>
+        <p class="title">3.Clustering and Finding the best K</p>
+        <p class="title">4.Visualization</p>
+        <br/>
+
+        <h4 class="title">Vocabulary Table</h4>
+        <img src="resource/vocabulary_table.png" alt="Simply Easy Learning" width="854.4" height="336"
+             class="displayed">
+        <br/>
+        <h4 class="title">Using K-means and Silhouette Score to get the best clustering(best k = 2)</h4>
+        <img src="resource/text_best_k.png" alt="Simply Easy Learning" width="922" height="531" class="displayed">
+        <br/>
+        <h4 class="title">Using the SVD to bring data down to 3D and Showing clustering</h4>
+        <img src="resource/text_cluster_3d.png" alt="Simply Easy Learning" width="900" height="350" class="displayed">
+        <br/>
+        <h4 class="title">Bubbling Graph</h4>
+        <img src="resource/text_cluster_as_time.png" alt="Simply Easy Learning" width="900" height="350"
+             class="displayed">
+        <br/>
+        <p class="text">I create a Bubbling graph with timeline.The size of point shows the tweets' percentage. The
+            result tells us that on October and December, Hillary and Trump sends most of the tweets. With the help of
+            wordCloud below, We know that most of the tweets are about action.</p>
+        <br/>
+        <h4 class="title">Keywords in the cluster0 and cluster1</h4>
+        <img src="resource/text_data_wordcloud0.png" alt="Simply Easy Learning" width="900" height="450"
+             class="displayed">
+        <br/>
+        <img src="resource/text_data_wordcloud1.png" alt="Simply Easy Learning" width="900" height="450"
+             class="displayed">
+
+        <p class="text">We can find that cluster0 contains many words of action and cluster1 is related to time. That's
+            interesting!</p>
+        <br/>
+        <h4 class="title">Let's use Hierarchical Clustering compared with K-means</h4>
+        <img src="resource/text_data_Hcluster.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <p class="text">Hierarchical Clustering get the result that best k = 3(Silhouette Score). And the best
+            hierarchical clustering silhouette score is 0.0151. However, the best silhouette score of k-means is 0.0514,
+            showing that the text data is more suitable for k-means to clustering. And the 3d vision also show that the
+            data is like a globe shape and globe shape data is suitable for k-means algorithm.</p>
+        <br/>
+        <h4 class="title">Let's use DBSCAN Clustering compared with K-means</h4>
+        <img src="resource/text_data_dbscan.png" alt="Simply Easy Learning" width="900" height="250"
+             class="displayed">
+        <p class="text">DBSCAN Clustering doesn't work in this dataset. And the best
+            DBSCAN clustering silhouette score is negative. Come back to the 3D visualization and find that there are
+            many points outside the high density area. If the density parameter is not suitable, this algorithm doesn't
+            work properly.</p>
+
+        <hr>
+
+        <h3 class="title">Table Data Clustering</h3>
+        <br/>
+        <h4 class="title">Choose the best k of table data</h4>
+        <img src="resource/table_best_k.png" alt="Simply Easy Learning" width="661" height="550" class="displayed">
+        <br/>
+        <p class="title">The silhouette score line shows that it's not suitable for to use k_means to cluster the data.
+            The score are always in low position and continue to raise as the k rising.</p>
+        <br/>
+        <h4 class="title">K-means cluster visualization</h4>
+        <img src="resource/table_data_density.png" alt="Simply Easy Learning" width="674" height="576"
+             class="displayed">
+        <br/>
+        <p class="text">Focus on the votes and ansi. We can find that green is a special one. The votes of
+            them are extremely in large number. Therefore, we need to check those county_ansi in green color. Maybe they
+            are the important counties of election.</p>
+        <p class="text">We can also get more message from the county_long and county_lat.Why the blue point has been
+            seperated by the purple one. Since the nearby county should always have the similar ansi, latitude,
+            longitude, the affecting factor must be votes.</p>
+        <h4 class="title">Hierarchical Cluster</h4>
+        <img src="resource/table_data_Hcluster.png" alt="Simply Easy Learning" width="800" height="576"
+             class="displayed">
+        <p class="text">Hierarchical Clustering is time-consuming.Therefore, I select the first 50 sample to do the
+        clustering work. It seems that the 36 is a special one.</p>
+        <br/>
+        <hr>
+        <br/>
+        <h3 class="title">Table Data Cleaning Part(1976-2016 president election & 2016 president election data)</h3>
+        <br/>
+        <div class="title">
+            <a href="https://drive.google.com/drive/folders/1PB9YUZdZMurwj6cQRg5l-Co0p4XKXHB3?usp=sharing"
+               class="title" target="_blank"
+            >Raw Table Data Source</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="title">
+            <a href="https://drive.google.com/drive/folders/1UKAD_E5gFDG2eduTVIJ9n13imnZFV-q1?usp=sharing"
+               class="title" target="_blank"
+            >Clean Table Data Source</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="title">
+            <a href="https://github.com/yanyudefensi/GU_501/blob/master/tableDataClean/StatisticDataCleanAndAnalysis.rmd"
+               class="title" target="_blank"
+            >Table Data Clean Source Code(R)</a>
+        </div>
+        <br/>
+        <h4 class="title">There are 5 parts of text data cleaning.</h4>
+        <br/>
+        <p class="title">1.Have a quick look of two datasets.</p>
+        <p class="title">2.Select the necessary subset/attribute of the whole dataset.</p>
+        <p class="title">3.Check and Filter duplicate rows in the dataset.</p>
+        <p class="title">4.Check and Fix the missing value in the dataset.</p>
+        <p class="title">5.Check and Filter the outlier in the dataset.</p>
+        <br/>
+        <img src="resource/RCleanPart1.png" alt="Simply Easy Learning" width="1042" height="804" class="displayed">
+        <br/>
+        <img src="resource/RCleanPart2.png" alt="Simply Easy Learning" width="1089" height="583" class="displayed">
+        <br/>
+        <!--        <div class="title">-->
+        <!--            <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/LYWX3D"-->
+        <!--               class="title" target="_blank"-->
+        <!--            >U.S. President 2016 LINK</a>-->
+        <!--        </div>-->
+
+    </ul>
+</article>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $("button").click(function () {
+        window.location.replace("01_Introduction.html");
+    });
+</script>
 </body>
-</html>

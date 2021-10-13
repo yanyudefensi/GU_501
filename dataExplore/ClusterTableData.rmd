@@ -1,0 +1,132 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+The [R plugin](https://www.jetbrains.com/help/pycharm/r-plugin-support.html) for IntelliJ-based IDEs provides
+handy capabilities to work with the [R Markdown](https://www.jetbrains.com/help/pycharm/r-markdown.html) files.
+To [add](https://www.jetbrains.com/help/pycharm/r-markdown.html#add-code-chunk) a new R chunk,
+position the caret at any line or the code chunk, then click "+".
+```{r}
+library(tidyverse)
+library(fpc) 
+library(ggplot2)
+library(GGally)
+# install.packages("fpc")
+# install.packages("wordcloud")
+# install.packages("tm")
+# install.packages("Snowball")
+```
+The code chunk appears:
+```{r}
+#prepare for the dataset
+# In order to decrease the computing pressure of clustering, I select 5000 samples of country to cluster and visualize.
+
+dataset <- read.table("/Users/junjiexie/Documents/gu校内生活/501/501dataProject/cleanData/data_2016_cluster_right.csv", sep = ",", fill = TRUE,header = TRUE,nrows=5000)
+```
+
+
+```{r}
+str(dataset)
+```
+
+
+```{r}
+subset(dataset,select = votes) %>%
+  gather(Attributes, values) %>%
+  ggplot(aes(x=reorder(Attributes, values, FUN=median), y=values, fill=Attributes)) +
+  geom_boxplot(show.legend=FALSE) +
+  labs(title="Dataset Attributes - Boxplots") +
+  theme_bw() +
+  theme(axis.title.y=element_blank(),
+        axis.title.x=element_blank()) +
+  ylim(0, 30) +
+  coord_flip()
+```
+
+
+```{r}
+# Normalization
+Norm <- as.data.frame(scale(subset(dataset,select = -c(label,X))))
+```
+```{r}
+# Now cluster set k = 8 the best
+set.seed(1234)
+cluster_data_8 <- kmeans(Norm, centers=8)
+```
+```{r}
+# Show distance matrix, select sample to show
+input <- subset(dataset,select = -c(label,X))[1:50,]
+e_matrix = dist(input, method = "euclidean", diag = FALSE, upper = FALSE, p = 2)
+m_matrix = dist(input, method = "manhattan", diag = FALSE, upper = FALSE, p = 2)
+#cosine
+install.packages("lsa")
+library(lsa)
+c_matrix <- cosine(as.matrix(input))
+```
+
+```{r}
+# use silhouette coefficient to find the best k
+storage <- c()
+for (i in 2:8){
+  set.seed(1234)
+  result <- kmeans(Norm,i)
+  stats <- cluster.stats(dist(Norm), result$cluster)
+  storage <- append(storage,stats$avg.silwidth)
+}
+```
+
+
+```{r}
+# we find that k=8 the silhouette coefficient is the best(it's not reliable, meaning that the data is not circle shape)
+plot(y=storage,x=c("2","3","4","5","6","7","8"),type="l", col="red",main="the best k choice")
+```
+
+
+```{r}
+# now show the picture of k=8，scatter and density picture
+ggpairs(cbind(subset(dataset,select = -c(label,X)), Cluster=as.factor(cluster_data_8$cluster)),
+        columns=1:5, aes(colour=Cluster, alpha=0.5),
+        lower=list(continuous="points"),
+        upper=list(continuous="blank"),
+        axisLabels="none", switch="both") +
+        theme_bw()
+```
+
+
+```{r}
+# when k=7, scatter and density picture
+set.seed(1234)
+cluster_data_7 <- kmeans(Norm, centers=7)
+ggpairs(cbind(subset(dataset,select = -c(label,X)), Cluster=as.factor(cluster_data_7$cluster)),
+        columns=1:5, aes(colour=Cluster, alpha=0.5),
+        lower=list(continuous="points"),
+        upper=list(continuous="blank"),
+        axisLabels="none", switch="both") +
+        theme_bw()
+```
+
+
+```{r}
+# when k=6, scatter and density picture
+set.seed(1234)
+cluster_data_6 <- kmeans(Norm, centers=6)
+ggpairs(cbind(subset(dataset,select = -c(label,X)), Cluster=as.factor(cluster_data_7$cluster)),
+        columns=1:5, aes(colour=Cluster, alpha=0.5),
+        lower=list(continuous="points"),
+        upper=list(continuous="blank"),
+        axisLabels="none", switch="both") +
+        theme_bw()
+```
+
+```{r}
+# In order to show clearly, I select 50 country to show the hierarchical cluster(dendrogram)
+need_to_show <- subset(dataset,select = -c(label,X))[1:50,]
+
+hclust.out <- hclust(dist(need_to_show),  method = "average")
+plot(hclust.out, main="The hierarchical result of votes(50 sample)")
+
+```

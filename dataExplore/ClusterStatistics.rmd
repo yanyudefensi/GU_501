@@ -1,0 +1,90 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+The [R plugin](https://www.jetbrains.com/help/pycharm/r-plugin-support.html) for IntelliJ-based IDEs provides
+handy capabilities to work with the [R Markdown](https://www.jetbrains.com/help/pycharm/r-markdown.html) files.
+To [add](https://www.jetbrains.com/help/pycharm/r-markdown.html#add-code-chunk) a new R chunk,
+position the caret at any line or the code chunk, then click "+".
+```{r}
+library(tidyverse)
+library(fpc) 
+library(ggplot2)
+# install.packages("fpc")
+# install.packages("wordcloud")
+# install.packages("tm")
+# install.packages("Snowball")
+```
+The code chunk appears:
+```{r}
+#prepare for the dataset
+c1 <- c(2,7,10,15,10,35,67,51,29)
+c2 <- c(2,8,10,12,25,32,67,89,91)
+c3 <- c(3,25,37,46,13,25,99,76,51)
+dataset <- data.frame(first=c1,second=c2,third=c3)
+```
+
+Type any R code in the chunk, for example:
+```{r}
+#show the boxplot of three attribute
+dataset %>%
+  gather(Attributes, values) %>%
+  ggplot(aes(x=reorder(Attributes, values, FUN=median), y=values, fill=Attributes)) +
+  geom_boxplot(show.legend=FALSE) +
+  labs(title="Dataset Attributes - Boxplots") +
+  theme_bw() +
+  theme(axis.title.y=element_blank(),
+        axis.title.x=element_blank()) +
+  ylim(0, 30) +
+  coord_flip()
+```
+```{r}
+# Normalization
+Norm <- as.data.frame(scale(dataset))
+```
+```{r}
+# Now cluster
+set.seed(1234)
+cluster_data <- kmeans(Norm, centers=2)
+```
+```{r}
+# Show cluster label
+cluster_data$cluster
+```
+```{r}
+# show cluster center,it's already normalized
+cluster_data$centers
+```
+```{r}
+# use silhouette coefficient to find the best k
+storage <- c()
+for (i in 2:5){
+  result <- kmeans(Norm,i)
+  stats <- cluster.stats(dist(Norm), result$cluster)
+  storage <- append(storage,stats$avg.silwidth)
+}
+```
+
+
+```{r}
+# we find that k=2 the ilhouette coefficient is the best (0.59)
+print(storage)
+```
+
+
+```{r}
+# now show the picture of k=2，scatter and density picture
+ggpairs(cbind(dataset, Cluster=as.factor(cluster_data$cluster)),
+        columns=1:3, aes(colour=Cluster, alpha=0.5),
+        lower=list(continuous="points"),
+        upper=list(continuous="blank"),
+        axisLabels="none", switch="both") +
+        theme_bw()
+
+```
+Now, click the **Run** button on the chunk toolbar to [execute](https://www.jetbrains.com/help/pycharm/r-markdown.html#run-r-code) the chunk code. The result should be placed under the chunk.
+Click the **Knit and Open Document** to build and preview an output.

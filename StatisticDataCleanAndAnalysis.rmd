@@ -19,6 +19,7 @@ data_2016 <- read.csv("/Users/junjiexie/Documents/gu校内生活/501/Assignment1
 
 
 ```{r}
+library(tidyverse) 
 # have a quick look of two dataset and subset dataset
 str(data_1976_2016)
 ```
@@ -29,7 +30,9 @@ str(data_2016)
 # select the necessary subset of the whole data set
 
 data_1976_2016_need <- subset(data_1976_2016, select = c("year", "state", "candidate", "party_simplified", "candidatevotes", "totalvotes"))
-data_2016_need <- subset(data_2016, select = c("year", "state", "candidate", "party", "votes"))
+#data_2016_need <- subset(data_2016, select = c("year", "state", "candidate", "party", "votes"))
+
+data_2016_need <- subset(data_2016, select = c("county_fips","county_ansi","candidate","county_lat","county_long","votes"))
 
 
 # fix the type of the dataset
@@ -46,7 +49,7 @@ duplicated(data_2016_need) %>%
 ```
 
 ```{r}
-library(tidyverse) 
+
 # library(scrubr)
 
 # remove the duplicate of data_2016_need
@@ -82,12 +85,12 @@ ggplot(data_1976_2016_need, aes(x = 1:length(candidatevotes), y = candidatevotes
  # base on the normal distribution assumption
 outlier_scores_1976_2016 <- scores(data_1976_2016_need$candidatevotes)
 outlier_scores_1976_2016_1 <- scores(data_1976_2016_need$totalvotes)
-data_1976_2016_need <- data_1976_2016_need[outlier_scores_1976_2016 > 3| outlier_scores_1976_2016 < -3, ]
-data_1976_2016_need <- data_1976_2016_need[outlier_scores_1976_2016_1 > 3| outlier_scores_1976_2016_1 < -3, ]
+data_1976_2016_need <- data_1976_2016_need[outlier_scores_1976_2016 < 3| outlier_scores_1976_2016 > -3, ]
+data_1976_2016_need <- data_1976_2016_need[outlier_scores_1976_2016_1 < 3| outlier_scores_1976_2016_1 > -3, ]
 
 # data_2016
 outlier_scores_2016 <- scores(data_2016_need$votes)
-data_2016_need <- data_2016_need[outlier_scores_2016 > 3 | outlier_scores_2016 < -3, ]
+data_2016_need <- data_2016_need[outlier_scores_2016 < 3 | outlier_scores_2016 > -3, ]
 ```
 
 ```{r}
@@ -100,8 +103,9 @@ data_2016_need <- data_2016_need[outlier_scores_2016 > 3 | outlier_scores_2016 <
 
 ```{r}
 # output clean data
-write.csv(data_1976_2016_need,file="data_1976_2016_clean.csv")
-write.csv(data_2016_need,file="data_2016_clean.csv")
+write.csv(data_2016_need,file="data_2016_cluster.csv")
+#write.csv(data_1976_2016_need,file="data_1976_2016_clean.csv")
+#write.csv(data_2016_need,file="data_2016_clean.csv")
 ```
 
 
