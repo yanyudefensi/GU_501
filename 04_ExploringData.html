@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .text {
+            text-indent: 2em;
+            text-align: left;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        button.link {
+            background: none;
+            /*border:none;*/
+        }
+
+        IMG.displayed {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /*div{*/
+        /*   width: 300px;*/
+        /*    margin:50px;*/
+        /*    float:left;*/
+        /*}*/
+        /*div img{*/
+        /*    display:block;*/
+        /*    width: 100%;*/
+        /*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+    <title>Data Gathering</title>
+
+
+</head>
+
+<body>
+
+<article class="blog-post">
+    <h2 class="title">Data Explore</h2>
+    <div class="title">
+        <p></p>
+        <button class="link">Back to Introduction</button>
+    </div>
+    <p></p>
+    <p class="title"></p>
+    <hr>
+    <ul>
+        <h3 class="title">Data Preview for Hillary and Trump Tweets(LDA topic model)</h3>
+        <br/>
+        <h4 class="title">Hillary LDA</h4>
+        <img src="resource/HillaryLDA.png" alt="Simply Easy Learning" width="661" height="550" class="displayed">
+        <br/>
+        <h4 class="title">Trump LDA</h4>
+        <img src="resource/TrumpLDA.png" alt="Simply Easy Learning" width="674" height="576" class="displayed">
+        <br/>
+        <p>LDA topic Model selects 10 related words as a topic. And we can guess the topic meaning through 10 words.
+            Hillary used many vocabularies with strong
+            action and words related to time. All of them are about family, time, action, vote. It's an interesting work
+            but it's not out of expectation. Surprisingly, Trump uses a lot of words that play up the moment of crisis
+            of America such as Fail, Lose, Disaster. Both of the candidates are good at motivating voters to vote by
+            rendering a sense of Crisis</p>
+
+        <h3 class="title">Data Preview for Hillary and Trump Tweets(Word cloud)</h3>
+        <br/>
+        <h4 class="title">Hillary Wordcloud</h4>
+        <img src="resource/HillaryWordCloud.png" alt="Simply Easy Learning" width="976" height="497" class="displayed">
+        <br/>
+        <h4 class="title">Trump Wordcloud</h4>
+        <img src="resource/TrumpWordCloud.png" alt="Simply Easy Learning" width="972" height="480" class="displayed">
+        <br/>
+        <p class="title">We can find that Trump has more confidence in winning the election, that's interesting!</p>
+    </ul>
+</article>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $("button").click(function () {
+        window.location.replace("01_Introduction.html");
+    });
+
+</script>
+</body>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .text {
+            text-indent: 2em;
+            text-align: left;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        button.link {
+            background: none;
+            /*border:none;*/
+        }
+
+        IMG.displayed {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /*div{*/
+        /*   width: 300px;*/
+        /*    margin:50px;*/
+        /*    float:left;*/
+        /*}*/
+        /*div img{*/
+        /*    display:block;*/
+        /*    width: 100%;*/
+        /*}*/
+    </style>
+    <title>Data Gathering</title>
+
+
+</head>
+
+<body>
+
+<article class="blog-post">
+    <h2 class="title">ARMandNetworking</h2>
+    <div class="title">
+        <p></p>
+        <button class="link">Back to Introduction</button>
+    </div>
+    <p></p>
+    <p class="title"></p>
+    <hr>
+    <ul>
+        <h3 class="title">Transaction Data Show</h3>
+        <p></p>
+        <p class="text">I got some tweets from Twitter API with the topic of 2016 U.S. Presidential Election. Clean them
+            and transfer them to the
+            transaction data so that it's convenience for us to use Associate Rules Mining to analyze and use
+            network
+            visualization skills to discover
+            relationship about hot-words.
+        </p>
+        <div class="title">
+            <a href="https://drive.google.com/file/d/1RBRkUPBLOx4vTKNKcGWIkSjof67jKyHn/view?usp=sharing"
+               class="title" target="_blank"
+            >Transaction Data of 2016 U.S. Presidential Election</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="title">
+            <a href="https://drive.google.com/file/d/1RRHkONEt1sdtBE43M_rxy2MjtPT9qpab/view?usp=sharing"
+               class="title" target="_blank"
+            >Associate Rules Mining and Network Visualization Code</a>
+        </div>
+        <br/>
+        <br/>
+
+        <h4 class="title">Screen shot of the Transaction Data</h4>
+        <br/>
+
+        <h4 class="title"></h4>
+        <br/>
+
+        <p class="title">Each line represents a tweet without stopwords, idol and html tag. There are only meaningful
+            words left in the tweet for further analysis.
+            <br/>
+
+            <img src="resource/transactionData.png" alt="Simply Easy Learning" width="1000" height="500"
+                 class="displayed">
+            <br/>
+        <p class="title">Let's see what Hot-Word with the help of WorldCloud in R.
+            <br/>
+            <img src="resource/worldCloudTransaction.png" alt="Simply Easy Learning" width="800" height="500"
+                 class="displayed">
+            <br/>
+        <p class="title">It seems that everything is about the election and time. Most words have a strong demanding
+            meaning and inspire the desire of voters to act. The hot word in tweets about the election is similar to
+            Hillary and Trump personal tweets. That's an interesting finding. Maybe people tends to cite sentences from
+            their leaders.</p>
+        <br/>
+        <h4 class="title">Introduction of Associate Rules Mining</h4>
+        <p class="text">Association rules learning is a rule-based machine learning method for discovering interesting
+            relations between variables in large databases. It is intended to identify strong rules discovered in
+            databases using some measures of interestingness.
+            Based on the concept of strong rules, Rakesh Agrawal, Tomasz Imieliński and Arun Swami introduced
+            association rules for discovering regularities between products in large-scale transaction data recorded by
+            point-of-sale (POS) systems in supermarkets. And let me introduce three important indicators.</p>
+        <p class="title">Support: Sup(X,Y)=P(X,Y)</p>
+        <p class="title">Confidence: Conf(X,Y)=P(Y|X)</p>
+        <p class="title">Lift: Lift(X,Y)=Sup(X,Y)/(Sup(X)*Sup(Y))</p>
+        <p class="text">With the help of three indicator, we use Apriori to calculate the interesting associate rules
+            in the database.Apriori is an algorithm for frequent item set mining and association rule learning. It
+            identifies items in the database which appear sufficiently enough and the result can be applied to many
+            domians such as market analysis.</p>
+        <p class="title">ItemSets -> Generate K-Itemset, Candidates(Join Steps) ->Checking Support
+
+            ->Frequent Items -> Set of K-1 frequent itemsets is None?(IF no, Return Generate K-Itemset)
+
+            ->Stop</p>
+        <p class="title">Because there are many overlapping rules in the text dataset. In order to collect effective
+            information, we decide to filter most of the rules and keep rank 15 part of support, confidence, lift for
+            further research.</p>
+        <br/>
+        <h4 class="title">Table Of The Top 15 Rules For Support</h4>
+        <br/>
+        <img src="resource/sortSupport.png" alt="Simply Easy Learning" width="900" height="400" class="displayed">
+        <p class="title">That's valuable information from this ranking support table. You see,
+            christopher,collusion,russia always appear together. Therefore, they take over the ranked 3 position in the
+            table. We still remember that
+            On May 10, 2017, U.S. President Donald Trump disclosed classified information to Russian government
+            representatives, creating political and security concerns in the United States and its allies, especially
+            Israel. It seems that the Donald Trump's disclosures of classified information is a hot topic in tweets</p>
+        <br/>
+        <h4 class="title">Table Of The Top 15 Rules For Confidence</h4>
+        <img src="resource/sortConfidence.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <br/>
+        <p class="text">From the rank 15 confidence table, you can know when Skynews appear,then follow the
+            Dossier,Collusion,Russia,Trump, which tell us that
+            skynews might be the first media to recover the Donald Trump's disclosures of classified information. With
+            the assumption, I search in the google with the key word 'Sky Mew,Trump,Russia'. This is the first searching
+            result 'Christopher Steele: Confessions of a former British spy on Johnson, Putin, Trump, and James Bond'.
+            It proves my judgement.</p>
+        <br/>
+        <h4 class="title">Table Of The Top 15 Rules For Lift</h4>
+        <img src="resource/sortLift.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <br/>
+        <p class="text">When lift is higher than 1, it means that X and Y have positive relationship and be possible to
+            appear together. From the table, we
+            know that
+            sky new focus their attention on reporting Donald Trump's disclosures of classified information, which leads
+            to a strong positive relationship between skynews and russia,trump,collusion,steele.</p>
+        <br/>
+        <h3 class="title">Network Visualization</h3>
+        <br/>
+        <h4 class="title">Igraph in R</h4>
+        <img src="resource/IgraphR.png" alt="Simply Easy Learning" width="900" height="500" border="5"
+             class="displayed">
+        <img src="resource/IgraphRName.png" alt="Simply Easy Learning" width="900" height="500" border="5"
+             class="displayed">
+        <h4 class="title">VisNetwork in R</h4>
+        <img src="resource/VisNetworkR.png" alt="Simply Easy Learning" width="900" height="600" border="5"
+             class="displayed">
+        <h4 class="title">NetworkD3 in R</h4>
+        <p class="title">
+            <iframe class="title" src="ARMandNetworking/NetD3_DCR2019_worldNewsL_2022.html" width="900" height="800"
+                    frameborder="1/0" name="NetworkD3 in R" border="5"
+                    scrolling="yes/no/auto">
+            </iframe>
+        </p>
+        <p class="text">Since the network plot in NetworkD3 is the most clear and impressive, we use this plot to
+            explain some interesting finding. There is only one center point of the whole network "skynews". Other
+            points are surrounding the center and their words are always overlapping. Most frequency keyword are
+            "British","Russia","Trump", indicating that skynews is a media in England and report the the Donald Trump's
+            disclosures of classified information.</p>
+
+        <hr>
+
+        <h3 class="title">Some discussion about Associate Rules Mining and Network Visualization</h3>
+        <br/>
+        <p class="text">Using Associate Rules Mining, we find that it's skynews, a famous media from England,
+            reported the Donald Trump's disclosures of classified information. It's a hot politic topic in 2017 and
+            become an important part of American political struggle. With the help of tweets analysis, we realize that
+            2016 president election is controversial. And many people can not accept Trump policy, leading to an
+            enormous
+            conflict in 2017.That's why I am interested in the 2016 president in the United States, Trump doesn't stand
+            for Republican and Democratic interests, as a result, Trump always suffers from serious political
+            allegations.
+            It's hard to say Trump's policy is suitable for America.</p>
+        <br/>
+        <p class="text">Also, the network visualization is a Radial network structure. The center is Skynews,
+            connecting points about Trump, Russia,
+            christopher, England. Since just one center in the whole network structure, we can make a conclusion that
+            skynews report the Donald Trump's disclosures of classified information. The result is similar with the
+            associate
+            rules mining. But it doesn't mean that network visualization is useless. If there are several center,
+            we can
+            notice the distance between different centers and discover some valuable information from the visualization.
+            For example,
+            which kind of center is similar. That's one of the key value of the network plot.
+        </p>
+        <br/>
+        <br/>
+    </ul>
+</article>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $("button").click(function () {
+        window.location.replace("01_Introduction.html");
+    });
+</script>
+</body>

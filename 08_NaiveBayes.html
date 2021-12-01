@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .text {
+            text-indent: 2em;
+            text-align: left;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        button.link {
+            background: none;
+            /*border:none;*/
+        }
+
+        IMG.displayed {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /*div{*/
+        /*   width: 300px;*/
+        /*    margin:50px;*/
+        /*    float:left;*/
+        /*}*/
+        /*div img{*/
+        /*    display:block;*/
+        /*    width: 100%;*/
+        /*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+    <title>Data Gathering</title>
+
+
+</head>
+
+<body>
+
+<article class="blog-post">
+    <h2 class="title">Naive Bayes</h2>
+    <div class="title">
+        <p></p>
+        <button class="link">Back to Introduction</button>
+    </div>
+    <p></p>
+    <p class="title"></p>
+    <hr>
+    <ul>
+        <h3 class="title">Source Code and Data</h3>
+        <br/>
+        <div class="title">
+            <a href="https://drive.google.com/drive/folders/14AaadBLD_Q8AgUZmnd22VK1pMw8qYmbr?usp=sharing"
+               class="title" target="_blank"
+            >Tweeet Data and Election Data</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="title">
+            <a href="https://drive.google.com/drive/folders/1oSdIaWw92Hb8ucbimX07UuKu3Lbwb20O?usp=sharing"
+               class="title" target="_blank"
+            >NaiveBayes of Python and R Source Code</a>
+        </div>
+        <br/>
+        <br/>
+
+        <h4 class="title">NaiveBayes(Python Language)</h4>
+        <br/>
+        <p class="title">I chose the text of Trump's tweets and divided the statements made before and after Trump was
+            elected president into two categories, and tried to use a Bayesian model to classify the
+            tweets made before and after Trump was elected president</p>
+        <br/>
+        <h3 class="title">Screenshot of the text data</h3>
+        <br/>
+        <img src="resource/Assignment5PythonData.png" alt="Simply Easy Learning" width="800" height="600"
+             class="displayed">
+        <br/>
+        <h4 class="title">Gaussian Naive Bayes</h4>
+        <br/>
+        <p class="title">Accuracy on training set: 0.869</p>
+        <p class="title">Accuracy on testing set: 0.823</p>
+        <br/>
+        <p class="text">It seems that the Gaussian Naive Bayes performs good in the text classification. Exactly,
+            Gaussian Naive Bayes is not suitable for fitting the sparse data like vocabulary. In sklearn document, there
+            is a
+            special kind of Naive Bayes called Multinomial. But what surprises me most is if I do some parameter tuning
+            on the Gaussian Naive
+            Bayes model, this model can work as good as the Multinomial Naive Bayes model. The secret is smoothing the
+            max variance of
+            the feature while calculating. Without it, the model have poor accuracy in test set(0.469). I think that it
+            plays
+            as the role of L2 normalization and help model avoid remembering the outliers.
+        <p/>
+        <br/>
+
+        <img src="resource/NaivePython2d.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <br/>
+        <p class="text">I used the pca dimensionality reduction technique to reduce the X independent variable to 2
+            dimensions and plotted categorical scatter plots for visualising the decision boundaries of the Bayesian
+            model. The results are very interesting, with the data points appearing as radial lines. And the model
+            argues that the bottommost presenting radial data points appear to be in two categories. It can therefore be
+            argued that Trump's rhetoric began to take on a different character by 2016.</p>
+        <br/>
+        <img src="resource/NaivePython3d.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <br/>
+        <p class="text">What makes a 3d scatter plot better than a 2d scatter plot is that it gives a better picture of
+            the state of the data distribution. Here, I find that Trump's statements in 2016 have clearer boundaries in
+            3d space with statements from other times, which is one of the reasons why the model works better.</p>
+        <br/>
+        <img src="resource/NaivePython.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <br/>
+        <p class="text">The confusion matrix reveals that Trump posted fewer tweets after the president-elect, but the
+            model incorrectly discriminates tweets posted after the president-elect as pre-election tweets and tweets
+            posted before the president-elect as post-election tweets, both of which make the model's performance in
+            discriminating Trump's presidential-election tweets not good.But it can also be demonstrated in another way
+            that Trump's rhetorical shift predates the presidential election of 2016</p>
+        <br/>
+        <h3 class="title">Conclusion</h3>
+        <br/>
+        <p class="text">By variance smoothing, I was surprised to find that the distribution of y labels also conforms
+            to a Gaussian distribution. Therefore, before applying each machine learning model, we should carefully
+            understand the mathematical principles of the model and the impact of each hyper parameter on the model.
+            With
+            parameter tuning and data feature uncovering, the Bayesian model achieves no worse results than integrated
+            models such as random
+            forests.</p>
+
+        <h3 class="title">NaiveBayes(R Language)</h3>
+        <br/>
+        <p class="title">I chose the 2016 US president election voted county data. And try to figure out that if the
+            Naive Bayes can use qualitative and quantitative data to distinguish between states that support Trump or
+            Hillary Clinton.</p>
+        <h3 class='title'>Screenshot of the Mixed Data</h3>
+        <br/>
+        <img src="resource/Assignment5RData.png" alt="Simply Easy Learning" width="800" height="600"
+             class="displayed">
+        <br/>
+        <br/>
+        <h4 class="title">Naive Bayes</h4>
+        <br/>
+        <p class="text">The mixed data contains text, county state vote counts, county vote counts, turnout metrics,
+            etc., contains both categorical and numerical variables, and the range of values varies in size, making it a
+            relatively representative mixed data set. My goal is to use a Bayesian model to discern whether each county
+            ultimately supports Hillary or Trump.</p>
+        <br/>
+        <h3 class="title">Feature Importance</h3>
+        <br/>
+        <img src="resource/BayesFeature.png" alt="Simply Easy Learning" width="1000" height="800"
+             class="displayed">
+        <br/>
+        <p class="text"> The column called MeanDecreaseAccuracy contains a measure of the extent to which a variable
+            improves the accuracy of the forest in predicting the classification.From the picture, I can find that state
+            and
+            total votes are the most important feature. Both Democrats and Republicans have relatively fixed states of
+            support, and we have learned through previous decision tree analysis that the counties that support Trump
+            are geographically characterised by being sparsely populated. Thus the characteristic contribution is also
+            more in line with reality.</p>
+        <br/>
+        <h4 class="title">ROC curve</h4>
+        <br/>
+        <img src="resource/BayesROC.png" alt="Simply Easy Learning" width="1000" height="800"
+             class="displayed">
+        <br/>
+        <p class="text">The ROC curve shows that Bayesian classification performance is just a little better than random
+            guesses and is not at all adaptable to such mixed data.</p>
+        <br/>
+        <h4 class="title">Bayes Matrix</h4>
+        <br/>
+        <img src="resource/BayesMatrix.png" alt="Simply Easy Learning" width="1000" height="800"
+             class="displayed">
+        <br/>
+        <p class="text">The confusion matrix gives similar results to the ROC curve analysis, where the model recklessly
+            discriminates most of the counties as Hillary supporters.</p>
+        <br/>
+        <h3 class="title">Conclusion</h3>
+        <br/>
+        <p class="text">By variance smoothing, I was surprised to find that the distribution of y labels also conforms
+            to a Gaussian distribution. Therefore, before applying each machine learning model, we should carefully
+            understand the mathematical principles of the model and the impact of each hyper parameter on the model.
+            With
+            parameter tuning, the Bayesian model achieves no worse results than integrated models such as random
+            forests.</p>
+        <br/>
+        <p class="text">Although in the mixed data, Bayesian performs much worse than the previous decision tree.
+            However, I think it can be compensated by feature mining and aggregation, and some parameter tuning.
+            However, due to time constraints, I did not have time to do further feature mining and model tuning. When
+            faced with data sets consisting of categorical variables as well as numerical variables with multiple value
+            ranges, Bayesian models do not perform as well as more complex models such as decision trees.</p>
+    </ul>
+</article>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $("button").click(function () {
+        window.location.replace("01_Introduction.html");
+    });
+
+
+
+
+
+</script>
+</body>

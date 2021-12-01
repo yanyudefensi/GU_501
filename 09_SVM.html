@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .text {
+            text-indent: 2em;
+            text-align: left;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        button.link {
+            background: none;
+            /*border:none;*/
+        }
+
+        IMG.displayed {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /*div{*/
+        /*   width: 300px;*/
+        /*    margin:50px;*/
+        /*    float:left;*/
+        /*}*/
+        /*div img{*/
+        /*    display:block;*/
+        /*    width: 100%;*/
+        /*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+    <title>Data Gathering</title>
+
+
+</head>
+
+<body>
+
+<article class="blog-post">
+    <h2 class="title">SVM</h2>
+    <div class="title">
+        <p></p>
+        <button class="link">Back to Introduction</button>
+    </div>
+    <p></p>
+    <p class="title"></p>
+    <hr>
+    <ul>
+        <h3 class="title">Source Code and Data</h3>
+        <br/>
+        <div class="title">
+            <a href="https://drive.google.com/drive/folders/14AaadBLD_Q8AgUZmnd22VK1pMw8qYmbr?usp=sharing"
+               class="title" target="_blank"
+            >Tweeet Data and Election Data</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="title">
+            <a href="https://drive.google.com/drive/folders/1bXEy0c3DVXaF27QZhvDO0Z58-zH6zz-l?usp=sharing"
+               class="title" target="_blank"
+            >SVM of Python and R Source Code</a>
+        </div>
+        <br/>
+        <br/>
+
+        <h4 class="title">SVM(Python Language)</h4>
+        <br/>
+        <p class="title">I chose the text of Trump's tweets and divided the statements made before and after Trump was
+            elected president into two categories, and tried to use a decision tree to classify the
+            tweets made before and after Trump was elected president</p>
+        <br/>
+        <h3 class="title">Screenshot of the text data</h3>
+        <br/>
+        <img src="resource/Assignment5PythonData.png" alt="Simply Easy Learning" width="800" height="600"
+             class="displayed">
+        <br/>
+        <h4 class="title">Linear SVM</h4>
+        <br/>
+        <p class="title">Accuracy on training set: 0.986</p>
+        <p class="title">Accuracy on testing set: 0.822</p>
+        <br/>
+        <p class="title">Hint:Regularization parameter. The strength of the regularization is
+            inversely proportional to C. Must be strictly positive.</p>
+        <p class="title">Accuracy on training set: 0.977 with regularization = 0.6</p>
+        <p class="title">Accuracy on testing set: 0.818 with regularization = 0.6</p>
+        <br/>
+        <p class="text">By regularizing the model, I simplify the complexity of the model, but the performance
+            degradation of the classification is not significant. I think a simple machine learning model would perform
+            more consistently. Also, through the visual analysis of text data in the previous Bayesian section, we found
+            that most of the data points are with clear boundaries, which may be one of the reasons why the linear SVM
+            performs very well.
+        <p/>
+        <br/>
+        <img src="resource/SVMPython1.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <br/>
+        <p class="text">The confusion matrix reveals that Trump posted fewer tweets after the president-elect, but the
+            model incorrectly discriminates tweets posted after the president-elect as pre-election tweets and tweets
+            posted before the president-elect as post-election tweets, both of which make the model's performance in
+            discriminating Trump's presidential-election tweets not good.Notice in the Bayesian visualization of the 3d
+            plot that some of Trump's post and pre-presidential election statements are linearly indistinguishable
+            within the same radial line.</p>
+        <br/>
+        <h4 class="title">SVM Kernal("RBF")</h4>
+        <br/>
+        <p class="title">Accuracy on training set: 0.986</p>
+        <p class="title">Accuracy on testing set: 0.822</p>
+        <br/>
+        <p class="title">Hint:Regularization parameter. The strength of the regularization is
+            inversely proportional to C. Must be strictly positive.</p>
+        <p class="title">Accuracy on training set: 0.858 with regularization = 0.6</p>
+        <p class="title">Accuracy on testing set: 0.763 with regularization = 0.6</p>
+        <br/>
+        <p class="text">We know that some data points can't be seperated by a line.However, what if we wanted to
+            apply SVMs to
+            non-linear problems? How would we do that.
+        </p>
+        <p class="text">This is where the kernel trick comes in. A kernel is a function that takes the original
+            non-linear problem
+            and transforms it into a linear one within the higher-dimensional space. And this time, I choose rbf as the
+            kernal. If you want to know more about the rbf kernal, I recommend you google it because it contains
+            mathematical
+            calculation and I don't want to put it into my website, which is not the focus point of the topic.</p>
+        <p class="text">By regularizing the model, I simplify the complexity of the model, but the performance
+            degradation of the classification. But this time, the degradation of the classification is significantly.
+            Therefore, I need to cancel the regularization.
+        <p/>
+        <br/>
+        <img src="resource/SVMPython2.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <br/>
+        <p class="text">The confusion matrix reveals that Trump posted fewer tweets after the president-elect, but the
+            model incorrectly discriminates tweets posted after the president-elect as pre-election tweets and tweets
+            posted before the president-elect as post-election tweets.I was pleased that the kernel-based svm performed
+            slightly better than the linear svm this time, especially in correctly distinguishing Trump's tweets after
+            he was elected president.</p>
+        <br/>
+        <h4 class="title">SVM Kernal("sigmoid")</h4>
+        <br/>
+        <p class="title">Accuracy on training set: 0.901</p>
+        <p class="title">Accuracy on testing set: 0.828</p>
+        <br/>
+        <p class="title">Hint:Regularization parameter. The strength of the regularization is
+            inversely proportional to C. Must be strictly positive.</p>
+        <p class="title">Accuracy on training set: 0.869 with regularization = 0.6</p>
+        <p class="title">Accuracy on testing set: 0.815 with regularization = 0.6</p>
+        <br/>
+        <p class="text">By regularizing the model, I simplify the complexity of the model, but the performance
+            degradation of the classification. But this time, the degradation of the classification is significantly.
+            Therefore, I also need to cancel the regularization. Compared with the RBF kernal, this model can not
+            perfectly remember all the training samples but it performs similar when it faces with the new samples.
+            The problem doesn't come from the model but the data. If I want to have a better classification result, I
+            need to do more feature mining.
+        <p/>
+        <br/>
+        <img src="resource/SVMPython3.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <br/>
+        <p class="text">The confusion matrix reveals that the sigmoid kernal performs worse than RBF kernal.</p>
+        <br/>
+        <h3 class="title">SVM(R Language)</h3>
+        <br/>
+        <p class="title">I chose the 2016 US president election voted county data. And try to figure out that if the
+            Naive Bayes can use qualitative and quantitative data to distinguish between states that support Trump or
+            Hillary Clinton.</p>
+        <h3 class='title'>Screenshot of the Mixed Data</h3>
+        <br/>
+        <img src="resource/Assignment5RData.png" alt="Simply Easy Learning" width="800" height="600"
+             class="displayed">
+        <br/>
+        <br/>
+        <h4 class="title">SVM</h4>
+        <br/>
+        <p class="text">The mixed data contains text, county state vote counts, county vote counts, turnout metrics,
+            etc., contains both categorical and numerical variables, and the range of values varies in size, making it a
+            relatively representative mixed data set. My goal is to use a Bayesian model to discern whether each county
+            ultimately supports Hillary or Trump.</p>
+        <br/>
+        <h3 class="title">SVM(Polynomial Kernel)</h3>
+        <br/>
+        <img src="resource/SVMR_1.png" alt="Simply Easy Learning" width="500" height="300"
+             class="displayed">
+        <br/>
+        <img src="resource/SVM_R1_matrix.png" alt="Simply Easy Learning" width="500" height="300"
+             class="displayed">
+        <br/>
+        <p class="text"> The confusion matrix reveals that the SVM doesn't work properly. It could not find the right
+            Hillary support sample, which is similar with the Bayesian model.</p>
+        <br/>
+
+        <h3 class="title">SVM(Radial Kernel)</h3>
+        <br/>
+        <img src="resource/SVMR_2.png" alt="Simply Easy Learning" width="500" height="300"
+             class="displayed">
+        <br/>
+        <img src="resource/SVM_R2_matrix.png" alt="Simply Easy Learning" width="500" height="300"
+             class="displayed">
+        <br/>
+        <p class="text">Even though I changed the kernel of the SVM, the SVM still could not fit the 2016 presidential
+            candidate support county mix data. It just simply regards all the label is Trump.</p>
+        <br/>
+
+        <h3 class="title">SVM(Linear Kernel)</h3>
+        <br/>
+        <img src="resource/SVMR_3.png" alt="Simply Easy Learning" width="500" height="300"
+             class="displayed">
+        <br/>
+        <img src="resource/SVM_R3_matrix.png" alt="Simply Easy Learning" width="500" height="300"
+             class="displayed">
+        <br/>
+        <p class="text">The confusion matrix of the linear SVM shows that this one it better than the previous two. But
+            still not up to the pass mark of a qualified classifier.</p>
+        <br/>
+
+        <h3 class="title">Conclusion</h3>
+        <br/>
+        <p class="text">SVM performs well in high-dimensional text classification data, but does not perform well in
+            data with a mixture of categorical variables and numerical variables with different value ranges, even if I
+            am performing a normalization operation.Through several previous explorations we concluded that decision
+            trees and random forests are probably the most suitable machine learning models for mixed data.</p>
+        <br/>
+    </ul>
+</article>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $("button").click(function () {
+        window.location.replace("01_Introduction.html");
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>

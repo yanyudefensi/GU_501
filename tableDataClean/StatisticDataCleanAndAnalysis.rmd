@@ -39,13 +39,14 @@ data_2016_need <- subset(data_2016, select = c("year", "state", "candidate", "pa
 ```
 ```{r}
 # check if there is duplicate rows in the dataset
+library(tidyverse)
 duplicated(data_1976_2016_need) %>%
         sum()
 duplicated(data_2016_need) %>%
         sum()
 ```
 ```{r}
-library(tidyverse)
+#library(tidyverse)
 # library(scrubr)
 
 # remove the duplicate of data_2016_need
@@ -81,12 +82,12 @@ ggplot(data_1976_2016_need, aes(x = 1:length(candidatevotes), y = candidatevotes
 # base on the normal distribution assumption
 outlier_scores_1976_2016 <- scores(data_1976_2016_need$candidatevotes)
 outlier_scores_1976_2016_1 <- scores(data_1976_2016_need$totalvotes)
-data_1976_2016_need <- data_1976_2016_need[outlier_scores_1976_2016 > 3| outlier_scores_1976_2016 < -3, ]
-data_1976_2016_need <- data_1976_2016_need[outlier_scores_1976_2016_1 > 3| outlier_scores_1976_2016_1 < -3, ]
+data_1976_2016_need <- data_1976_2016_need[outlier_scores_1976_2016 < 3| outlier_scores_1976_2016 > -3, ]
+data_1976_2016_need <- data_1976_2016_need[outlier_scores_1976_2016_1 < 3| outlier_scores_1976_2016_1 > -3, ]
 
 # data_2016
 outlier_scores_2016 <- scores(data_2016_need$votes)
-data_2016_need <- data_2016_need[outlier_scores_2016 > 3 | outlier_scores_2016 < -3, ]
+data_2016_need <- data_2016_need[outlier_scores_2016 < 3 | outlier_scores_2016 > -3, ]
 ```
 ```{r}
 #typeof(data_1976_2016_need$party_simplified)

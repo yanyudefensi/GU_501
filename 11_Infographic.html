@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .text {
+            text-indent: 2em;
+            text-align: left;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        button.link {
+            background: none;
+            /*border:none;*/
+        }
+
+        IMG.displayed {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /*div{*/
+        /*   width: 300px;*/
+        /*    margin:50px;*/
+        /*    float:left;*/
+        /*}*/
+        /*div img{*/
+        /*    display:block;*/
+        /*    width: 100%;*/
+        /*}*/
+
+
+
+
+
+
+    </style>
+    <title>Infographic</title>
+
+
+</head>
+
+<body>
+
+<article class="blog-post">
+    <h2 class="title">Infographic</h2>
+    <div class="title">
+        <p></p>
+        <button class="link">Back to Introduction</button>
+        <br/>
+
+        <h3 class="title">Interesting Finding Through ML, Data Mining</h3>
+        <br/>
+        <h4 class="title">Asscoiate Rule Mining Part</h4>
+        <br/>
+        <h4 class="title">Top 15 Rules For Support</h4>
+        <br/>
+        <img src="resource/sortSupport.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <br/>
+        <p class="text">Chirstioper, a Former intelligence worker from the UK.
+            Collusion from Russia, refer to a scandal of U.S. Presidential Election Rigged by Foreign Powers.
+        <p/>
+        <br/>
+        <p class="text">We still remember that On May 10, 2017, U.S. President Donald Trump disclosed classified
+            information to Russian government representatives, creating political and security concerns in the United
+            States and its allies, especially Israel. It seems that the Donald Trump's disclosures of classified
+            information is a hot topic in tweets.
+        <p/>
+        <br/>
+        <h4 class="title">Top 15 Rules For Confidence</h4>
+        <br/>
+        <img src="resource/sortConfidence.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <br/>
+        <p class="text">Skynews, a famous UK Car Radio Media.The result tell us that which tell us that skynews might be
+            the first media to recover the Donald Trump's disclosures of classified information. With the assumption, I
+            search in the google with the key word 'Sky New, Trump, Russia'. This is the first searching result
+            'Christopher Steele: Confessions of a former British spy on Johnson, Putin, Trump, and James Bond'. It
+            proves my judgement.</p>
+        <br/>
+        <h4 class="title">NetworkD3 Visualization</h4>
+        <br/>
+        <p class="title">
+            <iframe class="title" src="ARMandNetworking/NetD3_DCR2019_worldNewsL_2022.html" width="900" height="800"
+                    frameborder="1/0" name="NetworkD3 in R" border="5"
+                    scrolling="yes/no/auto">
+            </iframe>
+        </p>
+        <br/>
+        <p class="text">There is only one center point of the whole network "skynews". Other points are surrounding the
+            center and their words are always overlapping. Most frequency keyword are "British", "Russia", "Trump",
+            indicating that skynews is a media in England and report the Donald Trump's disclosures of classified
+            information.</p>
+        <br/>
+        <h3 class="title">Decision Tree Part</h3>
+        <br/>
+        <h4 class="title">Tree Visualization</h4>
+        <br/>
+        <img src="resource/DT2_vis.png" alt="Simply Easy Learning" width="1000" height="800"
+             class="displayed">
+        <br/>
+        <p class="text">Three different decision trees chose the total number of county votes as the most important
+            classification feature. This indicates that there is a very strong association between the number of votes
+            in the state and the supporters in the 2016 election.</p>
+        <br/>
+        <img src="resource/Election.png" alt="Simply Easy Learning" width="1000" height="800"
+             class="displayed">
+        <br/>
+        <p class="text">I checked the relevant information and found that
+            Trump's supporting states are mostly from the more sparsely populated and economically underdeveloped
+            states. While Hillary's support states are mostly from economically developed, highly populated states such
+            as California.That’s the most valuable information found in Decision Tree.</p>
+        <br/>
+        <h3 class="title">Naive Bayes Part</h3>
+        <br/>
+        <img src="resource/NaivePython2d.png" alt="Simply Easy Learning" width="900" height="400"
+             class="displayed">
+        <br/>
+        <p class="text">I chose the text of Trump's tweets and divided the statements made before and after Trump was
+            elected president into two categories, and tried to use a Bayesian model to classify the
+            tweets made before and after Trump was elected president.I used the pca dimensionality reduction technique
+            to reduce the X independent variable to 2
+            dimensions and plotted categorical scatter plots for visualising the decision boundaries of the Bayesian
+            model. The results are very interesting, with the data points appearing as radial lines. And the model
+            argues that the bottommost presenting radial data points appear to be in two categories. It can therefore be
+            argued that Trump's rhetoric began to take on a different character before 2016.</p>
+        <br/>
+        <p class="text">And I got some important information from wiki.</p>
+        <br/>
+        <div class="text">
+            <i>The 2016 U.S. presidential election kicked off in mid-2015, and since Trump announced his
+                candidacy as a Republican on June 16, 2015, there have been some changes in the Republican Party's power
+                map. The poll found that the majority of Trump supporters were white men and lower-class workers, the
+                main
+                opponents of various economic free trade agreements and immigration-related bills, especially against
+                allowing illegal immigrants to have residency.</i>
+        </div>
+        <br/>
+        <div class="text">
+            <i>Trump defeated 16 opponents in the party primary, the largest number of candidates in U.S.
+                history, and on March 3, 2016, he was essentially confirmed as the Republican presidential nominee.</i>
+        </div>
+        <br/>
+        <h3 class="title">SVM Part</h3>
+        <br/>
+        <p class="text">The svm with default parameters does not effectively utilize qualitative variables such as
+            county affiliation and does not effectively distinguish between the statements made by Hillary and Trump
+            during the presidential election. My interpretation is that statistical information such as number and vote
+            share do not differ significantly between counties supporting different candidates, and thus do not
+            distinguish well between Trump-supporting and Hillary-supporting counties. If we need to improve the
+            classification effect, we need to add information such as the economic development of the county and replace
+            the Gaussian kernel to solve the dimensional explosion problem brought by one-hot variables.</p>
+
+        </ul>
+</article>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $("button").click(function () {
+        window.location.replace("01_Introduction.html");
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
